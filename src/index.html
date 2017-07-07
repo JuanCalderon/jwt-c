@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JwtC</title>
+
+  <base href="/">
+  <!-- <script>document.write('<base href="' + document.location + '" />');</script> -->
+
+  <!-- Setting the right viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Bootstrap -->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <!--<link rel="import" href="assets/bower_components/iron-flex-layout/iron-flex-layout.html">-->
+    <!--<link rel="import" href="assets/bower_components/paper-styles/color.html">-->
+    <!--<link rel="import" href="assets/bower_components/paper-styles/default-theme.html">-->
+    <!--<link rel="import" href="assets/bower_components/paper-styles/typography.html"> -->
+    <link rel="import" href="assets/bower_components/paper-styles/shadow.html">
+
+    <!-- Polymer Elements -->
+    <script src="assets/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="assets/bower_components/paper-styles/color.html">
+    <link rel="import" href="assets/bower_components/paper-styles/typography.html">
+    <link rel="import" href="assets/bower_components/paper-styles/default-theme.html">
+    <link rel="import" href="assets/bower_components/paper-styles/paper-styles.html">
+    <link rel="import" href="assets/bower_components/paper-styles/paper-styles-classes.html">
+
+  <link rel="import" href="assets/bower_components/paper-dialog/paper-dialog.html">
+  <link rel="import" href="assets/bower_components/paper-input/paper-input.html">
+  <link rel="import" href="assets/bower_components/paper-button/paper-button.html">
+  <link rel="import" href="assets/bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="assets/bower_components/paper-fab/paper-fab.html">
+  <link rel="import" href="assets/bower_components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="assets/bower_components/paper-tabs/paper-tab.html">
+    <link rel="import" href="assets/bower_components/paper-toast/paper-toast.html">
+    <link rel="import" href="assets/bower_components/paper-progress/paper-progress.html">
+  <link rel="import" href="assets/bower_components/iron-image/iron-image.html">
+  <link rel="import" href="assets/bower_components/iron-pages/iron-pages.html">
+
+    <link rel="import" href="assets/bower_components/iron-icon/iron-icon.html">
+    <link rel="import" href="assets/bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="assets/bower_components/iron-list/iron-list.html">
+
+  <link rel="import" href="assets/bower_components/app-layout/app-layout.html">
+    <link rel="import" href="assets/bower_components/iron-flex-layout/iron-flex-layout.html">
+
+  <link rel="import" href="assets/bower_components/paper-header-panel/paper-header-panel.html">
+  <link rel="import" href="assets/bower_components/paper-toolbar/paper-toolbar.html">
+  <link rel="import" href="assets/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+
+  <link rel="import" href="app/documentos/lista.documentos.component.html">
+
+  <style is="custom-style">
+      :root {
+          --dark-primary-color: #37474F;
+          --primary-color: #80CBC4;
+          --light-primary-color: #F2FAF9;
+          --text-primary-color: #FFFFFF;
+          --accent-color: #00BFA5;
+          --primary-background-color: #FFFFFF;
+          --primary-text-color: #666666;
+          --secondary-text-color: #727272;
+          --disabled-text-color: #BDBDBD;
+          --divider-color: #B6B6B6;
+
+          --drawer-menu-color: #ffffff;
+          --drawer-border-color: 1px solid #ccc;
+          --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
+
+          --paper-menu-background-color: #fff;
+          --menu-link-color: #111111;
+      }
+    #toastErrorLogin {
+      --paper-toast-background-color: red;
+      --paper-toast-color: white;
+    }
+    /*
+    body {
+      @apply(--layout-fullbleed);
+      @apply(--paper-font-body1);
+      background: #80CBC4; /* #F2FAF9; */ /* var(--primary-background-color); */
+     /* color: var(--primary-text-color);
+    }
+    */
+    /*
+    paper-input-container.rfc-paper-input {
+        --paper-input-container-color: violet;
+        --paper-input-container-focus-color: violet;
+        --paper-input-container-invalid-color: violet;
+        --paper-input-container-input-color: violet;
+        --paper-input-container-input: {
+            text-transform: uppercase;
+        };
+    }
+    */
+
+/*
+    paper-tabs paper-tab .iron-selected  {
+      color: #ffff8d;
+      background-color: #80CBC4;
+    }
+    */
+    /*
+    paper-tabs paper-tab #selectionBar {
+      background-color: #ff4081;
+      z-index: 1;
+    }
+    paper-tabs  paper-tab::shadow #ink {
+      color: #ff4081;
+    }
+    */
+
+    /*
+
+paper-tabs .pink::shadow #selectionBar {
+  background-color: #ff4081;
+}
+paper-tabs .pink paper-tab::shadow #ink {
+  color: #ff4081;
+}
+     */
+
+  </style>
+    <!--  wait for the "WebComponentsReady" event before bootstrapping the Angular 2 app. The event is fired after all of the web components have finished registering and are ready to be used. -->
+    <!--
+    <script>
+        document.addEventListener('WebComponentsReady', function() {
+            System.import('app').catch(function(err){ console.error(err); });
+        });
+    </script>
+    -->
+
+</head>
+<body style="    background-color: #F2FAF9;">
+  <app-root>Loading...</app-root>
+</body>
+</html>

@@ -1,0 +1,90 @@
+/*
+paper-input-container {
+    --paper-input-container-color: red;
+    --paper-input-container-focus-color: blue;
+    --paper-input-container-invalid-color: green;
+    --paper-input-container-input-color: black;    --paper-input-container-input: {
+        text-transform: uppercase;
+    };
+}
+
+paper-input-container.rfc-paper-input {
+    --paper-input-container-color: red;
+    --paper-input-container-focus-color: red;
+    --paper-input-container-invalid-color: red;
+    --paper-input-container-input-color: red;
+    --paper-input-container-input: {
+        text-transform: uppercase;
+    };
+}
+*/
+/*
+paper-button.custom {
+    --paper-button-ink-color: var(--paper-pink-a200);
+    --paper-button-flat-keyboard-focus: {
+        background-color: var(--paper-pink-a200);
+        color: white !important;
+    };
+    --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+    };
+}
+paper-button.custom:hover, paper-fab.custom:hover {
+    background-color: var(--paper-indigo-100);
+}
+paper-button.indigo, paper-fab.indigo {
+    background-color: var(--paper-indigo-500);
+    color: white;
+    --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+    };
+}
+paper-button.green, paper-fab.green {
+    background-color: var(--paper-green-500);
+    color: white;
+}
+paper-button.green[active], paper-fab.green[active] {
+    background-color: var(--paper-red-500);
+}
+paper-button.disabled, paper-fab.disabled{
+    color: white;
+}
+*/
+
+paper-radio-button, paper-checkbox{
+    font-size: large;
+    padding-top: 10px;
+}
+
+/*
+paper-fab {
+  position: absolute;
+  top: 30px;
+  right: 100px;
+}
+*/
+.align-right {
+    text-align: right;
+}
+
+paper-fab {
+    margin-left: 3px;
+}
+paper-fab.indigo {
+    background-color: var(--paper-indigo-500);
+    color: white;
+}
+
+paper-button.indigo {
+    background-color: var(--paper-indigo-500);
+    color: white;
+}
+paper-fab[disabled]{
+    background-color: var(--paper-grey-100) !important;
+    color: white;
+}
+paper-fab.custom:hover {
+    background-color: var(--paper-indigo-100);
+}

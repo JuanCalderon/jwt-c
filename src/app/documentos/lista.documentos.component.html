@@ -1,0 +1,209 @@
+<link rel="import" href="../../assets/bower_components/polymer/polymer.html">
+<link rel="import" href="../../assets/bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../assets/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../assets/bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../assets/bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../assets/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../assets/bower_components/paper-styles/color.html">
+<link rel="import" href="../../assets/bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../assets/bower_components/iron-list/iron-list.html">
+
+<link rel="import" href="../../assets/bower_components/iron-time/iron-time.html">
+
+<dom-module id="documentos-group">
+    <template>
+        <style>
+            :host {
+                display: block;
+                @apply --paper-font-common-base;
+            }
+            app-toolbar {
+                font-size: 18px;
+                font-weight: bold;
+                background-color: var(--google-blue-700);
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+                color: white;
+                z-index: 1;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+            app-toolbar paper-icon-button {
+                --paper-icon-button-ink-color: white;
+            }
+            #list {
+                margin-top: 63px;
+                --iron-list-items-container: {
+                    max-width: 800px;
+                    margin: 10px auto;
+                    border-bottom: 1px solid #ddd;
+                };
+            }
+            .group-header,
+            .group-item {
+                padding: 15px 20px;
+                background-color: white;
+                font-size: 15px;
+            }
+            .group-item {
+                @apply --layout-horizontal;
+                cursor: pointer;
+                border-left: 1px solid #ddd;
+                border-right: 1px solid #ddd;
+            }
+            .group-header {
+                font-weight: bold;
+                border: 1px solid #ddd;
+                color: #333;
+                margin-top: 20px;
+            }
+            .group-header:before {
+                content: '';
+                border-top: 1px solid #ddd;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+            .avatar {
+                height: 20px;
+                width: 20px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                background-color: #DDD;
+                margin-right: 16px;
+            }
+            .pad {
+                line-height: 20px;
+                width: 100%;
+            }
+            .secondary {
+                color: gray;
+                margin-left: 10px;
+                float: right;
+            }
+            .state-list {
+                width: 250px;
+                height: 80vh;
+                color: black;
+            }
+        </style>
+
+
+        <iron-list id="list" items="[[_generateGroupsFor(items)]]" scroll-target="document">
+            <template>
+                <div>
+                    <div class="group-header" hidden$="[[!_hasGroup(index)]]" > [[_texto(item.categoria_id)]]</div> <!-- hidden$="[[!_esconder(item.id)]]"  " -->
+                    <div class="group-item">
+                        <iron-icon class="avatar" icon="folder" ></iron-icon>
+                        <div class="pad">
+                            <span class="primary">[[item.attachment]]</span> <span class="secondary"><iron-time datetime="[[item.updated_at]]" format="dd/mmm/yyyy"></iron-time></span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </iron-list>
+
+    </template>
+
+    <script>
+//        HTMLImports.whenReady(function() {
+            Polymer({
+                is: 'documentos-group',
+                properties: {
+                    items: {
+                        type: Array,
+                        value: function() {
+                            return [];
+                        }
+                    },
+                    categorias: {
+                        type: Array,
+                        value: function() {
+                            return [];
+                        }
+                    }
+                },
+                created: function() {
+                    this._groupIdxMap = {};
+//                    console.log('T> ' + this._groupIdxMap);
+                },
+                _generateGroupsFor: function(items) {
+                    // Sort by state name
+                    var items = items.slice().sort(function(a, b) {
+                        return a.categoria_id - b.categoria_id;
+                    });
+                    var categorias = [];
+                    // Group by state where _groupIdxMap[index] = true means that items[index] starts a new group
+                    this._groupIdxMap = items.reduce(function(map, item, idx, arr) {
+                        map[idx] = false;
+                        if (idx == 0 || item.categoria_id != arr[idx-1].categoria_id) {
+                            map[idx] = true;
+                            categorias.push({ categoria_id: item.categoria_id, index: idx });
+                        }
+                        return map;
+                    }, {});
+
+                    this.categorias = categorias;
+                    return items;
+                },
+                _hasGroup: function(idx) {
+                    return  this._groupIdxMap[idx] == true;
+                },
+                _texto: function(cat_id) {
+                  switch (cat_id) {
+                      case 1: {
+                          return 'Primera';
+                      }
+                      case 2: {
+                          return 'Segunda';
+                      }
+                      default: {
+                          return 'Default';
+                      }
+                  }
+                },
+                _onStateClick: function(e) {
+                    // scroll on the main list
+                    this.$.menu.close();
+                    this.$.list.scrollToIndex(e.model.item.index);
+                }
+            });
+//        });
+    </script>
+</dom-module>
+
+
+<documentos-group></documentos-group>
+
+<!---
+
+<link rel="import" href="assets/bower_components/polymer/polymer.html">
+<link rel="import" href="assets/bower_components/iron-list/iron-list.html">
+
+<dom-module id="my-list">
+
+    <template>
+        <iron-list items="[[items]]" as="item">
+            <template>
+                <div>
+                    Nombre: [[item.attachment]]
+                </div>
+            </template>
+        </iron-list>
+    </template>
+
+    <script>
+        Polymer({
+            is: "my-list",
+            properties: {
+                items: Array
+            }
+        });
+
+    </script>
+</dom-module>
+
+-->

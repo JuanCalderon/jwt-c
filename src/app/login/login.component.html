@@ -1,0 +1,27 @@
+<paper-toast #toastErrorLogin id="toastErrorLogin" class="fit-bottom" text="Falla autenticación" duration="0" style="font-size: x-large;" >
+    <paper-button onclick="toastErrorLogin.toggle()" style="text-transform: none;color: #eeff41;">Cerrar</paper-button>
+</paper-toast>
+
+<div >
+    <div class="row text-center" style="    margin-top: 100px;">
+        <h2>Proveedores</h2>
+    </div>
+    <div class="row text-center" >
+        <iron-image src="assets/img/logo-cimav-medio.png" ></iron-image>
+    </div>
+
+    <div class="col-md-4 col-lg-offset-4" >
+    <form #loginForm="ngForm"  (ngSubmit)="onSubmit()"  novalidate > <!-- (ngSubmit)="f.form.valid && login()" #f="ngForm"  $event.value -->
+        <div class="row">
+            <paper-input (change)="rfcOnChange($event)" id="rfc-paper-input" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$"  label="RFC" char-counter maxlength="13" minlength="10" required auto-validate error-message="El RFC debe ser valido" name="rfc"  [(ngModel)]="model.rfc"></paper-input>
+        </div>
+        <div class="row">
+            <paper-input  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" type="password"  label="Password" required char-counter maxlength="40" minlength="8" auto-validate error-message="Mayúsculas, minúsculas, números y mínimo 8 caracteres" name="password"  [(ngModel)]="model.password"></paper-input>
+        </div>
+        <div class="row" style="float: right; margin-top: 15px;">
+            <paper-button class=" indigo" (click)="loginForm.ngSubmit.emit();" raised>Ingresar</paper-button> <!-- (click)="loginForm.ngSubmit.emit(loginForm);"   (click)="login()" [disabled]=!loginForm.form.valid  -->
+        </div>
+    </form>
+    </div>
+
+</div>

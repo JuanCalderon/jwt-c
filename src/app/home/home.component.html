@@ -1,0 +1,161 @@
+<!--
+<div class="col-md-6 col-md-offset-3">
+    <h1>This is HomeComponent</h1>
+    <h1 *ngIf="currentProveedor">Hi {{currentProveedor.rfc}}! - {{currentProveedor.razon_social}} </h1>
+    <p>You're logged in with the MEAN Stack & Angular 2!!</p>
+    <h3>All registered users:</h3>
+    <ul>
+        <li *ngFor="let proveedor of proveedores">
+            {{proveedor.id}} [{{proveedor.rfc}}] {{proveedor.razonSocial}}
+            >> <button (click)="loadProveedorByRfc(proveedor.rfc)">Carga</button>
+        </li>
+    </ul>
+    <p><a [routerLink]="['/login']">Logout</a></p>
+</div>
+
+-->
+
+<!--
+<paper-toast #toastUpdated id="toastUpdated" text="Justificación guardada" ></paper-toast>
+-->
+
+<paper-dialog id="confirmarDeleteDlg" modal >
+    <h2>Eliminar documento</h2>
+    <div><p>?Elimnar documento: {{documentoToDelete?.file}}?</p></div>
+    <div class="buttons">
+        <paper-button dialog-dismiss>Cancelar</paper-button>
+        <paper-button dialog-confirm autofocus (click)="deleteDocumentoSrv(documentoToDelete?.id)">Aceptar</paper-button>
+    </div>
+</paper-dialog>
+
+<paper-toast #toastUploaded id="toastUploaded" text="Documento cargado" ></paper-toast>
+<paper-toast #toastDeleted id="toastDeleted" text="Documento eliminado" ></paper-toast>
+<paper-toast #toastDownloaded id="toastDownloaded" text="Documento descargado" ></paper-toast>
+
+<app-drawer-layout fullbleed>
+
+    <app-header-layout has-scrolling-region style="background-color: #F2FAF9;">
+        <app-header fixed condenses effects="waterfall">
+            <app-toolbar>
+
+                <div main-title>Proveedores
+                    <div style="font-size: smaller;" *ngIf="currentProveedor">{{currentProveedor.rfc}}</div>
+                </div>
+
+                <p><a [routerLink]="['/login']">Logout</a></p>
+
+                <paper-progress value="100" bottom-item style="width: 100%; "></paper-progress>
+            </app-toolbar>
+        </app-header>
+
+
+        <paper-tabs id="theTabs" selected={{tab_selected}} on-iron-select="onTabSelect($event)">
+            <paper-tab>Facturas</paper-tab>
+            <paper-tab>Documentos</paper-tab>
+        </paper-tabs>
+
+        <iron-pages *ngIf="currentProveedor" id="thePages" selected={{tab_selected}} style="background-color: #eee; margin: 0; padding: 0; height: 100%; width: 100%;">
+            <!--
+            <vaadin-grid [items]="currentProveedor.documentos">
+                <table>
+                    <colgroup>
+                        <col name="id">
+                        <col name="attachment">
+                        <col name="updated_at">
+                        <col name="categoria_id">
+                    </colgroup>
+                </table>
+            </vaadin-grid>
+            -->
+            <!--
+                    <documentos-group [items]="currentProveedor.documentos"></documentos-group>
+            -->
+
+            <!-- Facturas Tab -->
+            <div id="facturas_tab_id">
+                <h1>Facturas Tab</h1>
+            </div>
+
+            <!-- Documentos Tab -->
+            <div id="documentos_tab_id" *ngIf="currentProveedor">
+                    <div *ngFor="let cat_id of [1,2,3]">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Panel {{cat_id}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <paper-item class="group-item" *ngFor="let docu of currentProveedor.documentos | CategoriaPipe:cat_id">
+                                    <span class="primary">{{docu.file}}</span>
+                                    <span class="secondary" style="top:-8px;     position: relative;">
+                                <!--
+                                <a href="http://localhost:3000/documentos/{{currentProveedor.rfc}}/{{cat_id}}/{{docu.file}}" tabindex="-1" target="_blank">
+                                    <paper-icon-button icon="file-download" style="color: #7a7a7a;"></paper-icon-button>
+                                </a>
+                                -->
+                                        <!--
+                                        <a href="http://localhost:3000/documentos/download/{{docu.id}}" tabindex="-1" target="_blank">
+                                            <paper-icon-button icon="file-download" style="color: #7a7a7a;"></paper-icon-button>
+                                        </a>
+                                        -->
+                                <paper-icon-button icon="file-download" style="color: #7a7a7a;" (click)="download(docu)" onclick="document.querySelector('#documentoDownloaded').show();"></paper-icon-button>
+                                <paper-icon-button icon="delete" style="color: #7a7a7a;" (click)="deleteDocumentoDlg(docu)" onclick="document.querySelector('#documentoDeleted').show();"></paper-icon-button>
+                            </span>
+                                    <span class="secondary"><iron-time datetime="{{docu.updated_at}}" format="dd/mmm/yyyy"></iron-time></span>
+                                </paper-item>
+                            </div>
+                            <div class="panel-footer">
+                                <uploader-component [categoria]="cat_id" [proveedor]="currentProveedor.id" (cambio)="notificarCambio($event)"></uploader-component>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+
+        </iron-pages>
+
+            <!-- tab uno -->
+        <!--
+            <div id="listado" *ngIf="currentProveedor">
+                <div *ngFor="let cat_id of [1,2]">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Panel title: {{cat_id}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <paper-item class="group-item" *ngFor="let docu of currentProveedor.documentos | CategoriaPipe:cat_id">
+                                <span class="primary">{{docu.file}}</span>
+                                <span class="secondary"><iron-time datetime="{{docu.updated_at}}" format="dd/mmm/yyyy"></iron-time></span>
+                            </paper-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- tab dos -->
+        <!--
+                    <div id="listado2" *ngIf="currentProveedor">
+                        <input type="file" ng2FileSelect [uploader]="uploader"/>
+                        <paper-button raised class="custom indigo" (click)="subir(cat_id)">Subir</paper-button>
+                    </div>
+                </iron-pages>
+                -->
+
+        <!--
+        <div *ngIf="currentProveedor">
+            <h3>Doocus:</h3>
+            <div *ngFor="let cat_id of [1,2]">
+                <code>{{cat_id}}</code>
+                <div *ngFor="let docu of currentProveedor.documentos | CategoriaPipe:cat_id">
+                    <h3>{{docu.attachment}}</h3>
+                </div>
+            </div>
+        </div>
+        -->
+
+
+
+
+    </app-header-layout>
+
+</app-drawer-layout>
+
