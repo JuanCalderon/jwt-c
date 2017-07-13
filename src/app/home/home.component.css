@@ -4,7 +4,7 @@ html, body {
   background-color: #F2FAF9;
 }
 
-root {
+rootxxx {
   --dark-primary-color: #37474F;
   --primary-color: #80CBC4;
   --light-primary-color: #F2FAF9;
@@ -74,7 +74,7 @@ paper-menu {
   /* height: 100%;*/
 }
 
-paper-menu .badge-left {
+xxxpaper-menu .badge-left {
   display: inline-block;
   font-size: small;
   color: white;
@@ -89,7 +89,7 @@ paper-menu .badge-left {
   border-radius: 4px 0 0 4px;
   height: 36px;
 }
-paper-menu .badge-right {
+xxxpaper-menu .badge-right {
   display: inline-block;
   font-size: small;
   color: white;
@@ -109,7 +109,7 @@ paper-menu .badge-right {
   overflow: hidden;
 }
 
-paper-menu  paper-item {
+xxxpaper-menu  paper-item {
   cursor: pointer;
   position: relative;
   left: 0;
@@ -119,17 +119,17 @@ paper-menu  paper-item {
   height: 1.6em;
   border-radius: 4px;
 }
-paper-menu paper-item.selected:hover {
+xxpaper-menu paper-item.selected:hover {
   background-color: #BBD8DC !important;
   color: white;
 }
-paper-menu  paper-item:hover  {
+xxpaper-menu  paper-item:hover  {
   color: #607D8B;
   background-color: #DDD;
   left: .1em;
 /*  border: #4bff0f dashed 1px; */
 }
-paper-menu .text {
+xxpaper-menu .text {
   position: relative;
   top: -3px;
 }
@@ -158,9 +158,9 @@ paper-tabs paper-tab.iron-selected  {
   background-color: #80CBC4;
 }
 
-#documentos_tab_id {
+#documentos_tab_id, #facturas_tab_id {
     padding-top: 30px;
-    max-width: 800px;
+    /*max-width: 800px;*/
     margin: 10px auto;
 }
 .panel {
@@ -225,4 +225,28 @@ paper-tabs paper-tab.iron-selected  {
 .panel-footer {
   height: 50px;
   padding: 10px 0 0 0;
+}
+
+input[type="file"] {
+  display: none;
+}
+#seleccionar-btn {
+  float: right;
+  top: -4px;
+}
+paper-button {
+  padding: 3px 8px;
+  background-color: #80CBC4;
+  color: white;
+  font-size: small;
+}
+paper-button[disabled]{
+  background-color: #dddddd !important;
+  color: white;
+}
+paper-button:hover {
+  background-color: #37474F;
+}
+paper-progress {
+  width: 100%; bottom: -5px;
 }

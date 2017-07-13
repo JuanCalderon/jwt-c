@@ -15,7 +15,7 @@ const URL = 'http://localhost:3000/documentos';
 
 export class UploaderComponent implements OnInit {
 
-    private uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'documento[attachment]', autoUpload: false, queueLimit: 1});
+    private uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'documento[attachment]', autoUpload: false, queueLimit: 10});
     _categoria: number = 1;
     _proveedor: number = 1;
 
@@ -39,7 +39,7 @@ export class UploaderComponent implements OnInit {
 
     ngOnInit() {
 
-        this.uploader = new FileUploader({url: URL, itemAlias: 'documento[attachment]', autoUpload: false, queueLimit: 10});
+        //this.uploader = new FileUploader({url: URL, itemAlias: 'documento[attachment]', autoUpload: false, queueLimit: 10});
 
         this.uploader.onAfterAddingFile = (file) => {
             file.withCredentials = false;
@@ -51,34 +51,48 @@ export class UploaderComponent implements OnInit {
             form.append("commit", "Save");
         };
 
-        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+        this.uploader.onCompleteItem = (item: FileItem, response: any, status: any, headers: any) => {
            console.log("completeItem>>>: ", item, this._proveedor, this._categoria);
+
+           item.remove();
+
+            this.cambio.emit('hello');
+
         };
         this.uploader.onCompleteAll = () => {
             console.log('completeALLL');
-            this.uploader.clearQueue();
+            //this.uploader.clearQueue();
 
-            this.cambio.emit('hello');
+            //this.cambio.emit('hello');
         };
         this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: any) => {
             console.log("errorItem>>>: ", item, status, response);
         };
 
         this.uploader.onAfterAddingFile = f => {
+            /*
             if (this.uploader.queue.length > 1) {
                 this.uploader.removeFromQueue(this.uploader.queue[0]);
             }
+            */
         };
 
     }
 
     seleccionar() {
         this.uploader.clearQueue();
-        $('#file_upload_' + this._categoria).trigger('click');
+        $('#file_uploader_' + this._categoria).trigger('click');
+    }
+    seleccionar2() {
+        //this.uploader.clearQueue();
+        $('#file_uploader_' + this._categoria).trigger('click');
     }
 
     subir() {
         this.uploader.uploadAll();
+    }
+    subir2(item: FileItem) {
+        item.upload();
     }
 
     cancelar() {

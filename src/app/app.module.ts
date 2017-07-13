@@ -34,7 +34,9 @@ import {UploaderComponent} from "./home/uploader.component";
     PolymerElement('app-header'),
     PolymerElement('app-toolbar'),
 
+    PolymerElement('paper-dropdown-menu'),
     PolymerElement('paper-dialog'),
+    PolymerElement('paper-tooltip'),
     PolymerElement('paper-input'),
     PolymerElement('paper-input-container'),
       PolymerElement('paper-fab'),
@@ -48,6 +50,8 @@ import {UploaderComponent} from "./home/uploader.component";
 
       PolymerElement('iron-list'),
       PolymerElement('iron-icon'),
+
+    PolymerElement('vaadin-combo-box'),
 
     PolymerElement('documentos-group'),
 

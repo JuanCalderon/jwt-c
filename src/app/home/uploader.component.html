@@ -1,6 +1,6 @@
-
+<!--
 <div>
-    <input [attr.id]="'file_upload_' + _categoria" type="file" ng2FileSelect [uploader]="uploader"
+    <input [attr.id]="'file_upload_er' + _categoria" type="file" ng2FileSelect [uploader]="uploader"
            accept=".xml,.txt,.jpg,.jpeg,.gif,.png,.pdf,.doc,.docx,.xls,.xlsx"/>
 
     <paper-button raised [disabled]="uploader.isUploading" id="seleccionar-btn" (click)="seleccionar()" ><iron-icon icon="search"></iron-icon> Seleccionar</paper-button>
@@ -11,4 +11,29 @@
 </div>
 
 <paper-progress indeterminate [disabled]="!uploader.isUploading"  bottom-item></paper-progress>
+-->
+
+<input [attr.id]="'file_uploader' + _categoria" type="file" ng2FileSelect [uploader]="uploader" accept=".xml,.txt,.jpg,.jpeg,.gif,.png,.pdf,.doc,.docx,.xls,.xlsx"/>
+<!--<paper-icon-button id="seleccionar-btn" icon="search" (click)="seleccionar2()" style="float: right; top: -44px; right: 4px;"></paper-icon-button> <!-- <iron-icon icon="search"></iron-icon> -->
+<!-- <paper-icon-button icon="file-download" style="color: #7a7a7a;" (click)="download(docu)" onclick="document.querySelector('#documentoDownloaded').show();"></paper-icon-button> -->
+<paper-item class="group-item" *ngFor="let item of uploader.queue">
+    <span class="primary">{{item?.file?.name}}</span>
+    <paper-button raised id="subir-btn" (click)="subir2(item)"><iron-icon icon="file-upload"></iron-icon>Subir</paper-button>
+    <paper-icon-button icon="file-download" style="color: #7a7a7a;" onclick="document.querySelector('#documentoDownloaded').show();"></paper-icon-button>
+</paper-item>
+
+<!--
+<div>
+    <input [attr.id]="'file_upload_er' + _categoria" type="file" ng2FileSelect [uploader]="uploader" accept=".xml,.txt,.jpg,.jpeg,.gif,.png,.pdf,.doc,.docx,.xls,.xlsx"/>
+
+    <paper-button raised [disabled]="uploader.isUploading" id="seleccionar-btn" (click)="seleccionar()" ><iron-icon icon="search"></iron-icon> Seleccionar</paper-button>
+    <span id="seleccion-span">{{uploader.queue[0]?.file?.name}}</span>
+    <paper-button raised id="cancelar-btn" [disabled]="disableCancenlar()" (click)="cancelar()"><iron-icon icon="clear"></iron-icon>Cancelar</paper-button>
+    <paper-button raised disabled id="subir-btn" [disabled]="disableSubir()" (click)="subir()" onclick="document.querySelector('#documentoUploaded').show();"><iron-icon icon="file-upload"></iron-icon>Subir</paper-button>
+
+</div>
+
+<paper-progress indeterminate [disabled]="!uploader.isUploading"  bottom-item></paper-progress>
+-->
+
 

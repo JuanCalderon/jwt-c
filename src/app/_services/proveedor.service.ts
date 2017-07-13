@@ -5,15 +5,33 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions, Response, ResponseContentType} from '@angular/http';
 
 import { AppConfig } from '../app.config';
-import { Proveedor } from '../_models/proveedor';
+import {Proveedor, Documento, Categoria} from '../_models/proveedor';
 import {Observable} from "rxjs";
 
 @Injectable()
 export class ProveedorService {
     constructor(private http: Http, private config: AppConfig) { }
 
-    getDocusOf(idProveedor: number) {
+    /*
+    public getDocusOf(idProveedor: number) {
         return this.http.get(this.config.apiUrl + '/documentos/by_proveedor_id/' + idProveedor, this.jwt()).map((response: Response) => response.json());
+    }
+    */
+
+    public getDocusOf = (idProveedor: number): Observable<Documento[]> => {
+        return this.http.get(this.config.apiUrl + '/documentos/by_proveedor_id/' + idProveedor,  this.jwt())
+            .map((response: Response) => {
+                return <Documento[]>response.json();
+            });
+        //.catch(this.handleError);
+    }
+
+    public getCategos =(): Observable<Categoria[]> => {
+        return this.http.get(this.config.apiUrl + '/categorias',  this.jwt())
+            .map((response: Response) => {
+                return <Categoria[]>response.json();
+            });
+        //.catch(this.handleError);
     }
 
     getAll() {
